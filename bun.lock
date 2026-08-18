@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "irriguide-ui",
+      "name": "irriguide-web-core",
       "dependencies": {
         "next": "16.3.1",
         "react": "19.2.8",
