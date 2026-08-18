@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "fmt": "biome format --write && biome check --write --unsafe ."
   },
   "dependencies": {
     "next": "16.3.1",
