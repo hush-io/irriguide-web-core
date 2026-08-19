@@ -5,6 +5,8 @@ _Environmental monitoring and irrigation suitability assessment for rice product
 
 Framework: **React**  
 Meta-framework: **NextJS**  
+CSS: **Tailwind**  
+UI Framework: **Shadcn UI**  
 Verified package managers: **Bun** v1.3.3
 
 ### Getting Started
