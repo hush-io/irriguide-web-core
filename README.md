@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+**Irriguide Web Core** -  Smart Irrigation Monitoring System  
+_Environmental monitoring and irrigation suitability assessment for rice production areas in Malolos, Bulacan_
 
-## Getting Started
+### Technology Stack
 
-First, run the development server:
+Framework: **React**  
+Meta-framework: **NextJS**  
+Verified package managers: **Bun** v1.3.3
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Getting Started
+
+#### Prerequisites
+
+Install dependencies using preferred package manager. _(The project was initialized using [bun](https://bun.com/https://bun.com/) v1.3.3 so you might want to use that)_.  
+```sh
+bun install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### Running the App
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Run development server  
+```sh
+bun run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run production server  
+```sh
+bun run build
+bun run start
+```
 
-## Learn More
+#### Code Maintainance
 
-To learn more about Next.js, take a look at the following resources:
+Format code  
+```sh
+bun run fmt
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Gitflow
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### Rules
 
-## Deploy on Vercel
+- No commits should be pushed directly to the `main` branch
+- No PRs should be merged if there are request changes or pipeline failures
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### Branching
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The name of the branch should be prefixed with the issue type and issue number. Suffixing the branch name with whatever the issue is about is prerogative of the engineer working on the issue. Branch names **should all be lowercase**.
+
+Template: `<issue type>/<issue number>-<issue purpose>`  
+Samples:
+
+- `feature/143`
+- `feature/143-authentication`
+
+#### Commits
+
+Commit messages should follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0) specification.
