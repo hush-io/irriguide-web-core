@@ -52,14 +52,14 @@ export default function Home() {
           </div>
           <div className="my-6 flex w-full items-center justify-center">
             {ANCHORS.map((anchor) => (
-              <Card key={anchor.key} className="mx-4 max-w-md">
+              <Card key={anchor.key} className="mx-4 h-60 max-w-md">
                 <CardHeader>
                   <CardTitle>{anchor.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription>{anchor.description}</CardDescription>
                 </CardContent>
-                <CardFooter>
+                <CardFooter className="mt-auto">
                   <Button
                     render={<Link href={anchor.href} />}
                     nativeButton={false}
