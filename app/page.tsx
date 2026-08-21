@@ -38,11 +38,11 @@ const ANCHORS: Anchor[] = [
 
 export default function Home() {
   return (
-    <div className="bg-zinc-50 font-sans">
+    <div className="bg-zinc-50 font-body">
       <main className="flex min-h-screen w-full flex-col items-center justify-center">
         <section className="relative flex h-screen w-full flex-col items-center justify-center bg-[url('/assets/splash-wallpaper.png')] bg-center bg-cover bg-no-repeat">
           <div className="my-6">
-            <h1 className="text-center text-4xl text-black">
+            <h1 className="text-center font-heading text-4xl text-black">
               Smart Irrigation. Thriving Crops.
             </h1>
             <p className="my-2 text-center text-black">
