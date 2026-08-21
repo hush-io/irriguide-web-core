@@ -63,7 +63,7 @@ export default function Home() {
                   <Button
                     render={<Link href={anchor.href} />}
                     nativeButton={false}
-                    className="w-full bg-chart-3"
+                    className="w-full"
                   >
                     {anchor.buttonText}
                   </Button>
