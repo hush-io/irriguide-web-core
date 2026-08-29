@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { H1 } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -42,9 +43,9 @@ export default function Home() {
       <main className="flex min-h-screen w-full flex-col items-center justify-center">
         <section className="relative flex h-screen w-full flex-col items-center justify-center bg-[url('/assets/splash-wallpaper.png')] bg-center bg-cover bg-no-repeat">
           <div className="my-6">
-            <h1 className="text-center font-heading text-4xl text-black">
+            <H1 className="text-center font-heading text-4xl text-black">
               Smart Irrigation. Thriving Crops.
-            </h1>
+            </H1>
             <p className="my-2 text-center text-black">
               Optimizing water resources for sustainable agriculture and
               healthier yields.
