@@ -1,0 +1,62 @@
+name: Build
+
+on:
+  pull_request:
+    branches:
+      - main
+  release:
+    types:
+      - published
+
+env:
+  BUILD_DIR: '.next'
+
+jobs:
+  build:
+    name: 'Build & Artifacts'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Get app version
+        run: echo "VERSION=$(jq -r '.version' package.json)" >> "$GITHUB_ENV"
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2.2.0
+        with:
+          bun-version: 1.3.3
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build Next.js app
+        run: bun run build
+
+      - name: Remove build cache before packaging
+        run: rm -rf ${{ env.BUILD_DIR }}/cache
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: irriguide-web-core-${{ env.VERSION }}
+          path: ${{ env.BUILD_DIR }}
+
+      - name: Download artifact
+        if: github.event_name == 'release'
+        uses: actions/download-artifact@v8.0.1
+        with:
+          name: irriguide-web-core-${{ env.VERSION }}
+          path: ${{ env.BUILD_DIR }}
+
+      - name: Zip build for release
+        if: github.event_name == 'release'
+        run: cd ${{ env.BUILD_DIR }} && zip -r ../irriguide-web-core-${{ env.VERSION }}.zip .
+
+      - name: GitHub release assets
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v3.0.3
+        with:
+          files: irriguide-web-core-${{ env.VERSION }}.zip
