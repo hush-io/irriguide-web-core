@@ -20,7 +20,7 @@ export function H2({ className, ...props }: HeadingProps) {
   return (
     <h2
       className={cn(
-        "scroll-m-20 border-b pb-2 font-heading font-semibold text-[1.75rem] tracking-tight transition-colors",
+        "scroll-m-20 pb-2 font-heading font-semibold text-[1.75rem] tracking-tight transition-colors",
         className,
       )}
       {...props}
