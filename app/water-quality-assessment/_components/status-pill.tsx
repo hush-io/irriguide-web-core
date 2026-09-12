@@ -12,7 +12,7 @@ export default function StatusPill({ condition }: { condition: Condition }) {
 
   return (
     <Badge className={`${conditionTone}`}>
-      <span className="size-1.5 rounded-full bg-current" />
+      <span className="mr-1 size-1.5 rounded-full bg-current" />
       {condition.charAt(0).toUpperCase() + condition.slice(1).toLowerCase()}
     </Badge>
   );
