@@ -196,6 +196,6 @@
     @apply bg-background text-foreground;
   }
   html {
-    @apply font-body;
+    @apply overscroll-y-none font-body;
   }
 }
