@@ -1,79 +1,79 @@
+import { ArrowRight, CloudSun, Droplets, type LucideIcon } from "lucide-react";
 import HoverPrefetchLink from "@/components/common/hover-prefetch-link";
-import { H1 } from "@/components/common/typography";
-import { Button } from "@/components/ui/button";
+import { H1, H2 } from "@/components/common/typography";
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 
-interface Anchor {
+interface Module {
   title: string;
   key: string;
   description: string;
-  buttonText: string;
   href: string;
+  icon: LucideIcon;
 }
 
-const ANCHORS: Anchor[] = [
+const MODULES: Module[] = [
   {
     title: "Climate Data",
     key: "climate-data",
     description:
       "Real-time weather data monitoring, soil moisture insights, and historical climate analytics to inform your irrigation strategies.",
-    buttonText: "View Dashboard",
     href: "/climate-data",
+    icon: CloudSun,
   },
   {
     title: "Water Quality Assessment",
-    key: "water-quailty-assessment",
+    key: "water-quality-assessment",
     description:
       "Monitor and analyze essential water quality parameters for optimal irrigation safety, crop health, and regulatory compliance.",
-    buttonText: "Check Quality",
     href: "/water-quality-assessment",
+    icon: Droplets,
   },
 ];
 
 export default function Home() {
   return (
-    <div className="bg-zinc-50 font-body">
-      <main className="flex min-h-screen w-full flex-col items-center justify-center">
-        <section className="relative flex h-screen w-full flex-col items-center justify-center bg-[url('/assets/splash-wallpaper.png')] bg-center bg-cover bg-no-repeat">
-          <div className="my-6">
-            <H1 className="text-center font-heading text-4xl text-black">
-              Smart Irrigation. Thriving Crops.
-            </H1>
-            <p className="my-2 text-center text-black">
+    <main className="flex-1 font-body">
+      <section className="flex h-72 w-full items-end bg-[url('/assets/splash-wallpaper.png')] bg-center bg-cover bg-no-repeat md:h-80">
+        <div className="w-full bg-linear-to-t from-white/80 to-transparent">
+          <div className="mx-auto w-[calc(100%-2rem)] max-w-6xl pt-16 pb-10 lg:w-[calc(100%-5rem)]">
+            <H1 className="text-black">Smart Irrigation. Thriving Crops.</H1>
+            <p className="mt-2 text-black">
               Optimizing water resources for sustainable agriculture and
               healthier yields.
             </p>
           </div>
-          <div className="my-6 flex w-full items-center justify-center">
-            {ANCHORS.map((anchor) => (
-              <Card key={anchor.key} className="mx-4 h-60 max-w-md">
-                <CardHeader>
-                  <CardTitle>{anchor.title}</CardTitle>
+        </div>
+      </section>
+      <div className="mx-auto w-[calc(100%-2rem)] max-w-6xl space-y-4 py-8 lg:w-[calc(100%-5rem)]">
+        <H2>Modules</H2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {MODULES.map(({ key, href, icon: Icon, title, description }) => (
+            <HoverPrefetchLink
+              key={key}
+              href={href}
+              className="group rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <Card className="h-full transition-colors group-hover:bg-muted/50">
+                <CardHeader className="gap-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <Icon className="size-5" />
+                    </div>
+                    <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
+                  </div>
+                  <CardTitle className="text-base">{title}</CardTitle>
+                  <CardDescription>{description}</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <CardDescription>{anchor.description}</CardDescription>
-                </CardContent>
-                <CardFooter className="mt-auto">
-                  <Button
-                    render={<HoverPrefetchLink href={anchor.href} />}
-                    nativeButton={false}
-                    className="w-full"
-                  >
-                    {anchor.buttonText}
-                  </Button>
-                </CardFooter>
               </Card>
-            ))}
-          </div>
-        </section>
-      </main>
-    </div>
+            </HoverPrefetchLink>
+          ))}
+        </div>
+      </div>
+    </main>
   );
 }
