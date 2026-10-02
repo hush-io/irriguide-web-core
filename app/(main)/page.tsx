@@ -38,7 +38,10 @@ const MODULES: Module[] = [
 export default function Home() {
   return (
     <main className="flex-1 font-body">
-      <section className="flex h-72 w-full items-end bg-[url('/assets/splash-wallpaper.png')] bg-center bg-cover bg-no-repeat md:h-80">
+      <section
+        data-navbar-backdrop="light"
+        className="flex h-[calc(--spacing(72)+var(--navbar-offset))] w-full items-end bg-[url('/assets/splash-wallpaper.png')] bg-center bg-cover bg-no-repeat md:h-[calc(--spacing(80)+var(--navbar-offset))]"
+      >
         <div className="w-full bg-linear-to-t from-white/80 to-transparent">
           <div className="mx-auto w-[calc(100%-2rem)] max-w-6xl pt-16 pb-10 lg:w-[calc(100%-5rem)]">
             <H1 className="text-black">Smart Irrigation. Thriving Crops.</H1>
