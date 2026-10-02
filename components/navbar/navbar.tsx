@@ -111,7 +111,7 @@ export default function Navbar() {
       <div
         data-scrolled={scrolled}
         className={cn(
-          "mx-auto flex h-(--navbar-height) max-w-[calc(var(--container-6xl)+--spacing(4))] items-center justify-between gap-4 rounded-xl px-2 text-(--navbar-foreground) transition-[background-color,box-shadow,backdrop-filter] duration-200",
+          "mx-auto flex h-(--navbar-height) max-w-[calc(var(--container-6xl)+--spacing(8))] items-center justify-between gap-4 rounded-xl px-4 text-(--navbar-foreground) transition-[background-color,box-shadow,backdrop-filter] duration-200",
           // Solid background when the browser can't blur what's behind the navigation bar
           "data-[scrolled=true]:bg-background data-[scrolled=true]:text-foreground data-[scrolled=true]:shadow-xs data-[scrolled=true]:ring-1 data-[scrolled=true]:ring-foreground/10 data-[scrolled=true]:supports-backdrop-filter:bg-background/70 data-[scrolled=true]:supports-backdrop-filter:backdrop-blur-md",
         )}
