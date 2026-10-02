@@ -62,21 +62,21 @@ export default async function WaterQualityAssessment() {
         <Card>
           <CardContent className="gap-0">
             <div className="flex items-center justify-between">
-              <p className="font-bold text-[10px] text-slate-400 uppercase tracking-[.14em]">
+              <p className="font-bold text-[10px] uppercase tracking-[.14em]">
                 Recent activity
               </p>
             </div>
             <div className="mt-3 divide-y divide-border">
               {activities.map(([title, meta, status]) => (
                 <div key={title} className="flex items-center gap-3 py-3">
-                  <div className="grid size-8 place-items-center rounded-lg bg-slate-100 text-slate-500">
+                  <div className="grid size-8 place-items-center rounded-lg bg-slate-100">
                     <Droplets size={15} />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <strong className="block truncate text-slate-700 text-xs">
+                    <strong className="block truncate text-xs">
                       {title}
                     </strong>
-                    <small className="text-[10px] text-slate-400">{meta}</small>
+                    <small className="text-[10px]">{meta}</small>
                   </div>
                   {status && <StatusPill condition={status} />}
                 </div>

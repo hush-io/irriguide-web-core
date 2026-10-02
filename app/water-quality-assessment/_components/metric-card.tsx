@@ -1,4 +1,5 @@
 import type { LucideIcon } from "lucide-react";
+import { memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
@@ -46,6 +47,13 @@ const conditionNote: Record<Condition, string> = {
   moderate: "Outside the optimal range, keep monitoring",
   unsuitable: "Outside the acceptable range, take action",
 };
+const toneStyleDecimal: Record<Tone, string> = {
+  primary: "text-primary",
+  secondary: "text-secondary",
+  tertiary: "text-tertiary",
+  quarternary: "text-quarternary",
+  quinary: "text-quinary",
+};
 
 function formatRange({
   min,
@@ -71,10 +79,10 @@ interface MetricCardProps {
   value: number;
   condition?: Condition;
   boundaries?: MetricBoundaries;
-  onValueChange: (value: number) => void;
+  onValueChange: (key: MetricKey, value: number) => void;
 }
 
-export default function MetricCard({
+function MetricCard({
   metric,
   value,
   condition,
@@ -85,6 +93,7 @@ export default function MetricCard({
   const iconTone = toneStyleIcon[metric.tone];
   const sliderTone = toneStyleSlider[metric.tone];
   const decimals = metric.step.toString().split(".")[1]?.length ?? 0;
+  const decimalsTone = toneStyleDecimal[metric.tone]
   const target = boundaries?.conditions.suitable.map(formatRange).join(", ");
 
   return (
@@ -103,12 +112,12 @@ export default function MetricCard({
         </div>
         <div className="flex flex-col gap-2">
           <div>
-            <p className="font-bold text-[10px] text-slate-400 uppercase tracking-[.14em]">
+            <p className="font-bold text-[10px] uppercase tracking-[.14em]">
               {metric.label}
             </p>
-            <p className="mt-1 font-bold font-mono text-3xl text-slate-800 tracking-tight">
+            <p className={cn("mt-1 font-bold font-mono text-3xl tracking-tight", decimalsTone)}>
               {value.toFixed(decimals)}
-              <span className="ml-1 font-normal text-slate-400 text-xs">
+              <span className="ml-1 font-normal text-xs">
                 {boundaries?.unit}
               </span>
             </p>
@@ -121,20 +130,27 @@ export default function MetricCard({
             max={metric.max}
             step={metric.step}
             onValueChange={(next) =>
-              onValueChange(typeof next === "number" ? next : next[0])
+              onValueChange(
+                metric.key,
+                typeof next === "number" ? next : next[0],
+              )
             }
           />
-          <div className="flex justify-between text-[10px] text-slate-400">
+          <div className="flex justify-between text-[10px]">
             <span>{target && `Target ${target}`}</span>
             <span>
               {metric.min} – {metric.max}
             </span>
           </div>
         </div>
-        <p className="mt-auto text-slate-500 text-xs leading-relaxed">
+        <p className="mt-auto text-xs leading-relaxed">
           {condition && conditionNote[condition]}
         </p>
       </CardContent>
     </Card>
   );
 }
+
+// The React Compiler memoizes the parent's `metrics.map(...)` output as a whole, not per item,
+// so moving one slider would still re-render every card without this.
+export default memo(MetricCard);

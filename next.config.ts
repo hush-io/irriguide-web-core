@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const backendUrl = process.env.IRRIGUIDE_API_URL ?? "http://localhost:8000";
 
 const nextConfig: NextConfig = {
+  reactCompiler: true,
   async rewrites() {
     return [
       {

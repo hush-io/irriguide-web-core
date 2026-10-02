@@ -1,4 +1,4 @@
-import Link from "next/link";
+import HoverPrefetchLink from "@/components/common/hover-prefetch-link";
 import { H1 } from "@/components/common/typography";
 import { Button } from "@/components/ui/button";
 import {
@@ -62,7 +62,7 @@ export default function Home() {
                 </CardContent>
                 <CardFooter className="mt-auto">
                   <Button
-                    render={<Link href={anchor.href} />}
+                    render={<HoverPrefetchLink href={anchor.href} />}
                     nativeButton={false}
                     className="w-full"
                   >
