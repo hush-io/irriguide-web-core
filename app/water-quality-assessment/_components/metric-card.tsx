@@ -93,7 +93,7 @@ function MetricCard({
   const iconTone = toneStyleIcon[metric.tone];
   const sliderTone = toneStyleSlider[metric.tone];
   const decimals = metric.step.toString().split(".")[1]?.length ?? 0;
-  const decimalsTone = toneStyleDecimal[metric.tone]
+  const decimalsTone = toneStyleDecimal[metric.tone];
   const target = boundaries?.conditions.suitable.map(formatRange).join(", ");
 
   return (
@@ -115,7 +115,12 @@ function MetricCard({
             <p className="font-bold text-[10px] uppercase tracking-[.14em]">
               {metric.label}
             </p>
-            <p className={cn("mt-1 font-bold font-mono text-3xl tracking-tight", decimalsTone)}>
+            <p
+              className={cn(
+                "mt-1 font-bold font-mono text-3xl tracking-tight",
+                decimalsTone,
+              )}
+            >
               {value.toFixed(decimals)}
               <span className="ml-1 font-normal text-xs">
                 {boundaries?.unit}

@@ -73,9 +73,7 @@ export default async function WaterQualityAssessment() {
                     <Droplets size={15} />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <strong className="block truncate text-xs">
-                      {title}
-                    </strong>
+                    <strong className="block truncate text-xs">{title}</strong>
                     <small className="text-[10px]">{meta}</small>
                   </div>
                   {status && <StatusPill condition={status} />}
