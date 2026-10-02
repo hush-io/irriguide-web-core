@@ -20,6 +20,8 @@ bun install
 
 #### Running the App
 
+The app expects [irriguide-backend](https://github.com/irriguide/irriguide-backend) to be running. Set `IRRIGUIDE_API_URL` to its URL if it is not on `http://localhost:8000`.
+
 Run development server  
 ```sh
 bun run dev
