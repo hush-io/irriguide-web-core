@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import { memo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 import type { ConditionRange, MetricBoundaries, MetricKey } from "../_lib/api";
@@ -108,7 +109,11 @@ function MetricCard({
           >
             <Icon size={17} />
           </div>
-          {condition && <StatusPill condition={condition} />}
+          {condition ? (
+            <StatusPill condition={condition} />
+          ) : (
+            <Skeleton className="my-1 h-4 w-18" />
+          )}
         </div>
         <div className="flex flex-col gap-2">
           <div>
@@ -142,14 +147,29 @@ function MetricCard({
             }
           />
           <div className="flex justify-between text-[10px]">
-            <span>{target && `Target ${target}`}</span>
+            <span>
+              {target ? (
+                `Target ${target}`
+              ) : (
+                <Skeleton className="my-1 h-2 w-16" />
+              )}
+            </span>
             <span>
               {metric.min} – {metric.max}
             </span>
           </div>
         </div>
         <p className="mt-auto text-xs leading-relaxed">
-          {condition && conditionNote[condition]}
+          {condition ? (
+            conditionNote[condition]
+          ) : (
+            <Skeleton className="my-2 h-3 w-9/12" />
+          )}
+          {condition ? (
+            conditionNote[condition]
+          ) : (
+            <Skeleton className="my-2 h-3 w-1/2" />
+          )}
         </p>
       </CardContent>
     </Card>

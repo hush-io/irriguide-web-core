@@ -15,17 +15,25 @@ function inRange(
 
 export function evaluateCondition(
   value: number,
-  boundaries: MetricBoundaries,
-): Condition {
+  boundaries?: MetricBoundaries | null,
+): Condition | null {
   return (
     conditionOrder.find((condition) =>
-      boundaries.conditions[condition].some((range) => inRange(value, range)),
-    ) ?? "unsuitable"
+      boundaries?.conditions[condition].some((range) => inRange(value, range)),
+    ) ?? null
   );
 }
 
 // The worst condition wins, the same way the backend determines the overall status.
-export function overallCondition(conditions: Condition[]): Condition {
+export function overallCondition(conditions: Condition[]): Condition | null {
+  if (
+    !conditions ||
+    conditions.length <= 0 ||
+    !conditions.some((condition) => condition)
+  ) {
+    return null;
+  }
+
   return conditionOrder.reduce((worst, condition) =>
     conditions.includes(condition) ? condition : worst,
   );
