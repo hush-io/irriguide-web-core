@@ -28,7 +28,7 @@ function Logo() {
       className="flex items-center gap-2 rounded-md font-bold font-heading text-lg outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
     >
       <Image
-        src="/assets/logo.png"
+        src="/assets/logo-full.png"
         alt=""
         width={32}
         height={32}
