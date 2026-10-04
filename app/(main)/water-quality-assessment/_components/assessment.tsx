@@ -11,6 +11,7 @@ import {
 import { type ReactNode, useEffect, useState } from "react";
 import { H2, H3 } from "@/components/common/typography";
 import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import {
   type FarmersPractice,
@@ -99,27 +100,27 @@ function keepIfEqual<T>(current: T, next: T) {
 }
 
 interface OverallStatusProps {
-  condition: Condition;
-  summary: string;
+  condition: Condition | null;
+  summary: string | null;
   error: boolean;
 }
 
 function OverallStatus({ condition, summary, error }: OverallStatusProps) {
-  const tone = toneStyleOverall[condition];
+  const tone = condition && toneStyleOverall[condition];
 
   return (
     <div
       className={cn(
         "flex flex-col justify-between gap-5 rounded-xl border p-5 sm:flex-row sm:items-center",
-        tone.container,
+        tone?.container,
       )}
     >
       <div className="flex items-center gap-4">
         <div
           className={cn(
             "grid size-16 shrink-0 place-items-center rounded-full border-8 bg-white",
-            tone.ring,
-            tone.text,
+            tone?.ring,
+            tone?.text,
           )}
         >
           <Droplets size={20} />
@@ -128,8 +129,12 @@ function OverallStatus({ condition, summary, error }: OverallStatusProps) {
           <p className="font-bold text-[10px] uppercase tracking-[.14em]">
             Overall water quality
           </p>
-          <H3 className={cn("mt-1 capitalize", tone.text)}>{condition}</H3>
-          <p className="mt-1 text-xs">{summary}</p>
+          <H3 className={cn("mt-1 capitalize", tone?.text)}>
+            {condition ?? <Skeleton className="mt-3 h-5 w-18" />}
+          </H3>
+          <p className="mt-1 text-xs">
+            {summary ?? <Skeleton className="mt-2 h-3 w-full" />}
+          </p>
           {error && (
             <p className="mt-1 text-destructive text-xs">
               Unable to refresh the boundaries. Using the last fetched ones.
@@ -141,7 +146,11 @@ function OverallStatus({ condition, summary, error }: OverallStatusProps) {
   );
 }
 
-function RecommendedAction({ practice }: { practice?: FarmersPractice }) {
+function RecommendedAction({
+  practice,
+}: {
+  practice?: FarmersPractice | null;
+}) {
   return (
     <Card>
       <CardContent>
@@ -158,10 +167,16 @@ function RecommendedAction({ practice }: { practice?: FarmersPractice }) {
             <Leaf size={18} />
           </div>
         </div>
-        <p className="text-sm leading-relaxed">
-          {practice?.content ??
-            "No recommended practice is available for these readings."}
-        </p>
+        {practice?.content ? (
+          <p className="text-sm leading-relaxed">{practice?.content}</p>
+        ) : (
+          <p className="text-sm leading-relaxed">
+            <Skeleton className="my-3 h-4 w-9/12" />
+            <Skeleton className="my-3 h-4 w-7/8" />
+            <Skeleton className="my-3 h-4 w-1/2" />
+            <Skeleton className="my-3 h-4 w-11/12" />
+          </p>
+        )}
         <div className="mt-auto flex items-center justify-between border-foreground/10 border-t pt-5 text-[10px]">
           <span>
             <span className="mr-1 inline-block size-1.5 rounded-full bg-emerald-500" />
@@ -176,8 +191,8 @@ function RecommendedAction({ practice }: { practice?: FarmersPractice }) {
 
 interface AssessmentProps {
   initialValues: WaterQualityValues;
-  initialBoundaries: WaterQualityBoundaries;
-  initialPractices: FarmersPractice[];
+  initialBoundaries?: WaterQualityBoundaries | null;
+  initialPractices?: FarmersPractice[] | null;
   simulation: ReactNode;
 }
 
@@ -218,7 +233,7 @@ export default function Assessment({
   const conditions = Object.fromEntries(
     metrics.map(({ key }) => [
       key,
-      evaluateCondition(values[key], boundaries[key]),
+      evaluateCondition(values[key], boundaries?.[key]),
     ]),
   ) as Record<MetricKey, Condition>;
   const overall = overallCondition(Object.values(conditions));
@@ -228,8 +243,12 @@ export default function Assessment({
   const overallSummary =
     overall === "suitable"
       ? summary.suitable
-      : `${listFormat.format(flagged)} ${flagged.length > 1 ? "are" : "is"} ${summary[overall]}`;
-  const practice = practices.find(({ keywords }) => keywords.includes(overall));
+      : overall
+        ? `${listFormat.format(flagged)} ${flagged.length > 1 ? "are" : "is"} ${summary[overall]}`
+        : null;
+  const practice = overall
+    ? practices?.find(({ keywords }) => keywords.includes(overall))
+    : null;
 
   return (
     <>
@@ -253,7 +272,7 @@ export default function Assessment({
             metric={metric}
             value={values[metric.key]}
             condition={conditions[metric.key]}
-            boundaries={boundaries[metric.key]}
+            boundaries={boundaries?.[metric.key]}
             onValueChange={updateValue}
           />
         ))}
