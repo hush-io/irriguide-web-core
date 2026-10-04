@@ -154,7 +154,7 @@ function RecommendedAction({ practice }: { practice?: FarmersPractice }) {
               {practice?.title ?? "Best farmer's practice"}
             </h2>
           </div>
-          <div className="grid size-9 place-items-center rounded-lg bg-emerald-50 text-emerald-700">
+          <div className="grid size-9 place-items-center rounded-lg">
             <Leaf size={18} />
           </div>
         </div>
