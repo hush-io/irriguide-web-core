@@ -159,18 +159,16 @@ function MetricCard({
             </span>
           </div>
         </div>
-        <p className="mt-auto text-xs leading-relaxed">
-          {condition ? (
-            conditionNote[condition]
-          ) : (
-            <Skeleton className="my-2 h-3 w-9/12" />
-          )}
-          {condition ? (
-            conditionNote[condition]
-          ) : (
-            <Skeleton className="my-2 h-3 w-1/2" />
-          )}
-        </p>
+        {condition ? (
+          <p className="mt-auto text-xs leading-relaxed">
+            {conditionNote[condition]}
+          </p>
+        ) : (
+          <div className="mt-auto grid gap-2 py-1">
+            <Skeleton className="h-2.5 w-9/12" />
+            <Skeleton className="h-2.5 w-1/2" />
+          </div>
+        )}
       </CardContent>
     </Card>
   );
